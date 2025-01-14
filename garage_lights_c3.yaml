@@ -8,7 +8,7 @@ esphome:
   name_add_mac_suffix: true
   project:
     name: MorganMLGman.GarageLights
-    version: 1.0.1
+    version: 1.0.2
 
 packages: 
   esp32_c3_remote:
