@@ -1,0 +1,31 @@
+substitutions: 
+  ap_password: "123456789"
+  ota_password: "123456789"
+
+esphome:
+  name: garage_lights
+  friendly_name: Garage Lights
+  name_add_mac_suffix: true
+  project:
+    name: MorganMLGman.GarageLights
+    version: 1.0.0
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: esp-idf
+
+packages: 
+  esp01_1m_remote:
+    url: https://github.com/MorganMLGman/ESPHomeBaseFiles
+    files:
+      - ESP32/esp32_c3_super_mini.yaml
+    ref: master
+    refresh: 1d
+
+ota:
+  - platform: esphome
+    id: ota_esphome
+    password: ${ota_password}
+
+

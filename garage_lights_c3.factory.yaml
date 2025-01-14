@@ -1,0 +1,15 @@
+packages:
+  core: !include garage_lights_c3.yaml
+
+esphome:
+  project:
+    name: MorganMLGman.GarageLights
+    version: dev
+
+dashboard_import:
+  package_import_url: github://MorganMLGman/GarageLights/garage_lights_c3.yaml@main
+
+esp32_improv:
+  authorizer: none
+
+improv_serial:
