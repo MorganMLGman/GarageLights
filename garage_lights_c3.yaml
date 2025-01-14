@@ -18,9 +18,19 @@ packages:
     ref: master
     refresh: 1d
 
+http_request:
+
 ota:
   - platform: esphome
     id: ota_esphome
     password: ${ota_password}
+  - platform: http_request
+    id: ota_http
+
+update:
+  - platform: http_request
+    id: update_http_request
+    name: Firmware Update
+    source: https://morganmlgman.github.io/GarageLights/firmware/garage_lights.manifest.json
 
 
