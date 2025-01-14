@@ -33,5 +33,11 @@ update:
     name: Firmware Update
     source: https://morganmlgman.github.io/GarageLights/firmware/garage_lights.manifest.json
 
-
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: true
+    name: "Light Switch"
 
