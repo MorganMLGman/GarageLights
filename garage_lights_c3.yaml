@@ -8,7 +8,7 @@ esphome:
   name_add_mac_suffix: true
   project:
     name: MorganMLGman.GarageLights
-    version: 1.0.2
+    version: 1.0.3
 
 packages: 
   esp32_c3_remote:
@@ -40,4 +40,66 @@ binary_sensor:
       mode: INPUT_PULLUP
       inverted: true
     name: "Light Switch"
+    id: light_switch
+    on_multi_click:
+    - timing:
+        - ON for 0.2s to 1s
+        - OFF for at least 0.2s
+      then:
+        - if:
+            condition:
+              - script.is_running: light_timer_script
+            then:
+              - script.stop: light_timer_script
+        - light.toggle: garage_lights
+    - timing:
+        - ON for 0.2s to 1s
+        - OFF for at most 1s
+        - ON for 0.2s to 1s
+        - OFF for at least 0.2s
+      then:
+        - script.execute: light_timer_script
+    - timing:
+        - ON for 10s to 20s
+        - OFF for at least 0.2s
+      then:
+        - button.press: factory_reset_button
+
+output:
+  - platform: gpio
+    pin: GPIO2
+    id: relay
+    inverted: true
+
+light:
+  - platform: binary
+    name: "Garage Lights"
+    output: relay
+    id: garage_lights
+    restore_mode: RESTORE_DEFAULT_OFF
+
+number:
+  - platform: template
+    name: "Light Timer"
+    id: light_timer
+    min_value: 1
+    max_value: 60
+    initial_value: 3
+    step: 1
+    icon: mdi:timer
+    optimistic: true
+    restore_value: true
+
+script:
+  - id: light_timer_script
+    mode: single
+    then:
+      - light.turn_on: garage_lights
+      - delay: !lambda 'return id(light_timer).state * 60 * 1000;'
+      - light.turn_off: garage_lights
+
+status_led:
+  pin:
+    number: GPIO8
+    inverted: false
 
