@@ -8,7 +8,7 @@ esphome:
   name_add_mac_suffix: true
   project:
     name: MorganMLGman.GarageLights
-    version: 1.0.7
+    version: 1.0.8
 
 packages: 
   esp32_c3_remote:
@@ -60,6 +60,13 @@ binary_sensor:
       then:
         - script.execute: light_timer_script
     - timing:
+        - ON for 0.2s to 1s
+        - OFF for at most 1s
+        - ON for 3s to 5s
+        - OFF for at least 0.2s
+      then:
+        - switch.toggle: motion_lights
+    - timing:
         - ON for 10s to 20s
         - OFF for at least 0.2s
       then:
@@ -72,6 +79,8 @@ binary_sensor:
       inverted: false
     name: "PIR Motion"
     id: pir_motion
+    icon: mdi:motion-sensor
+    device_class: motion
     on_press:
       then:
         - if:
@@ -85,6 +94,7 @@ switch:
     id: motion_lights
     icon: mdi:motion-sensor
     optimistic: true
+    restore_mode: RESTORE_DEFAULT_ON
 
 output:
   - platform: gpio
@@ -115,7 +125,7 @@ number:
 
 script:
   - id: light_timer_script
-    mode: single
+    mode: restart
     then:
       - light.turn_on: garage_lights
       - delay: !lambda 'return id(light_timer).state * 60 * 1000;'
