@@ -8,7 +8,7 @@ esphome:
   name_add_mac_suffix: true
   project:
     name: MorganMLGman.GarageLights
-    version: 1.0.6
+    version: 1.0.7
 
 packages: 
   esp32_c3_remote:
@@ -64,6 +64,27 @@ binary_sensor:
         - OFF for at least 0.2s
       then:
         - button.press: factory_reset_button
+    
+  - platform: gpio
+    pin:
+      number: GPIO7
+      mode: INPUT_PULLDOWN
+      inverted: false
+    name: "PIR Motion"
+    id: pir_motion
+    on_press:
+      then:
+        - if:
+            condition:
+              - switch.is_on: motion_lights
+            then:
+              - script.execute: light_timer_script
+switch:
+  - platform: template
+    name: "Motion Lights"
+    id: motion_lights
+    icon: mdi:motion-sensor
+    optimistic: true
 
 output:
   - platform: gpio
