@@ -36,7 +36,7 @@ update:
 binary_sensor:
   - platform: gpio
     pin:
-      number: GPIO0
+      number: GPIO5
       mode: INPUT_PULLUP
       inverted: true
     name: "Light Switch"
@@ -67,7 +67,7 @@ binary_sensor:
 
 output:
   - platform: gpio
-    pin: GPIO2
+    pin: GPIO6
     id: relay
     inverted: true
 
