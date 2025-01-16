@@ -79,7 +79,6 @@ binary_sensor:
       inverted: false
     name: "PIR Motion"
     id: pir_motion
-    icon: mdi:motion-sensor
     device_class: motion
     on_press:
       then:
