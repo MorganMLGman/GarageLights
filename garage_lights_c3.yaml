@@ -8,7 +8,7 @@ esphome:
   name_add_mac_suffix: true
   project:
     name: MorganMLGman.GarageLights
-    version: 1.0.10
+    version: 1.0.11
 
 packages: 
   esp32_c3_remote:
@@ -82,7 +82,7 @@ switch:
     id: motion_lights
     icon: mdi:motion-sensor
     optimistic: true
-    restore_mode: RESTORE_DEFAULT_ON
+    restore_mode: RESTORE_DEFAULT_OFF
 
 output:
   - platform: gpio
