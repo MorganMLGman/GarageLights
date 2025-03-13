@@ -49,7 +49,7 @@ binary_sensor:
       - min_length: 10s
         max_length: 15s
         then:
-          - button.press: factory_reset_button
+          - button.press: factory_reset_button_0
     on_double_click:
       - min_length: 50ms
         max_length: 500ms
