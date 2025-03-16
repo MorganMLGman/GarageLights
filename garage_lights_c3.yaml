@@ -8,7 +8,7 @@ esphome:
   name_add_mac_suffix: true
   project:
     name: MorganMLGman.GarageLights
-    version: 1.0.11
+    version: 1.0.12
 
 packages: 
   esp32_c3_remote:
@@ -41,25 +41,17 @@ binary_sensor:
       inverted: true
     name: "Light Switch"
     id: light_switch
+    filters:
+      - delayed_on_off: 80ms
     on_click:
-      - min_length: 50ms
-        max_length: 500ms
+      - min_length: 100ms
+        max_length: 5000ms
         then:
           - light.toggle: garage_lights
       - min_length: 10s
         max_length: 15s
         then:
           - button.press: factory_reset_button_0
-    on_double_click:
-      - min_length: 50ms
-        max_length: 500ms
-        then:
-        - if:
-            condition:
-              - script.is_running: light_timer_script
-            then:
-              - script.stop: light_timer_script
-        - light.toggle: garage_lights
     
   - platform: gpio
     pin:
