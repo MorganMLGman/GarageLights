@@ -74,7 +74,7 @@ switch:
     id: motion_lights
     icon: mdi:motion-sensor
     optimistic: true
-    restore_mode: RESTORE_DEFAULT_OFF
+    restore_mode: ALWAYS_OFF 
 
 output:
   - platform: gpio
