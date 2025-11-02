@@ -48,10 +48,6 @@ binary_sensor:
         max_length: 5000ms
         then:
           - light.toggle: garage_lights
-      - min_length: 10s
-        max_length: 15s
-        then:
-          - button.press: factory_reset_button_0
     
   - platform: gpio
     pin:
